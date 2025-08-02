@@ -1,7 +1,3 @@
-"""
-Extract data from public sources, Steam API, Hugging Face
-"""
-
 import os
 import pandas as pd
 import requests
