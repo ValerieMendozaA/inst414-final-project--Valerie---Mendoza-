@@ -6,9 +6,6 @@ from analysis.evaluate import evaluate_model
 from vis.visualizations import generate_visuals
 
 def run_pipeline():
-    """
-   This is the full data science workflow from extraction to visualization.
-    """
     # Step 1: Extract
     print("Extracting data...")
     download_steam_dataset()
