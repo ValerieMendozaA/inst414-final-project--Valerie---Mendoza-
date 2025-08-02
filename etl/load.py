@@ -1,7 +1,3 @@
-"""
-loading step of the ETL pipeline
-"""
-
 import pandas as pd
 import os
 
