@@ -1,1 +1,4 @@
-# requirements.txt - Placeholder
+pandas
+matplotlib
+scikit-learn
+requests
