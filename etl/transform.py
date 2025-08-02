@@ -9,14 +9,11 @@ def clean_steam_data(input_path, output_path):
     # names
     df.columns = [col.strip().lower().replace(" ", "_") for col in df.columns]
 
-    # missing values 
     df = df.dropna(subset=["name", "release_date", "price", "tags"], how="any")
 
-    # Split tags 
     if "tags" in df.columns and df["tags"].dtype == object:
         df["tags"] = df["tags"].apply(lambda x: x.split(",") if isinstance(x, str) else [])
 
-    # Save the cleaned data
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     df.to_csv(output_path, index=False)
     print(f"Cleaned data saved to {output_path}")
