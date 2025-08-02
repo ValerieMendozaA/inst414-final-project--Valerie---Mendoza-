@@ -1,5 +1,5 @@
 """
-extract.py - Extract data from public sources (Steam API, Hugging Face, Mendeley, etc.)
+Extract data from public sources, Steam API, Hugging Face,
 """
 
 import os
