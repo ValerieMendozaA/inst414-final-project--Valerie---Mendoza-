@@ -3,10 +3,6 @@ import pandas as pd
 import requests
 
 def download_steam_dataset():
-    """
-    Downloads the Steam Games dataset from Hugging Face 
-    
-    """
     url = "https://huggingface.co/datasets/FronkonGames/steam-games-dataset/resolve/main/steam_games.csv"
     output_dir = "inst414-final-project-valerie-mendoza/data/extracted"
     os.makedirs(output_dir, exist_ok=True)
