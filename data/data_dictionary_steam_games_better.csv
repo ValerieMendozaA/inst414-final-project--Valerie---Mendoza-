@@ -1,0 +1,17 @@
+attribute_name,description,data_type,example_vaue,unit
+appid,Unique identifier for the game on Steam,Integer,620,N/A
+name,Official name of the game,String,Portal 2,N/A
+release_date,Date the game was released on Steam,Date,2011-04-19,YYYY-MM-DD
+price,Current base price of the game in USD,Float,19.99,USD
+discount,Discount percentage currently applied to the game,Integer,0,Percent
+genres,Primary genres the game belongs to,String,Action;Adventure;Puzzle,Semicolon-separated
+tags,User-defined tags describing gameplay and features,String,Co-op;Story Rich;First-Person,Semicolon-separated
+developer,Game development studio or creator,String,Valve,N/A
+publisher,Publishing company of the game,String,Valve,N/A
+positive_ratings,Number of positive user ratings,Integer,1200000,Count
+negative_ratings,Number of negative user ratings,Integer,25000,Count
+average_playtime,Average playtime in minutes based on user data,Integer,520,Minutes
+owners,Estimated number of owners or purchases,Integer,5000000,Users
+languages,Languages supported by the game,String,English;French;German,Semicolon-separated
+platforms,"Available platforms like Windows, Mac, or Linux",String,Windows;Mac,Semicolon-separated
+early_access,Whether the game was launched as an Early Access title,Boolean,False,True/False
