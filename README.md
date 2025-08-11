@@ -1,4 +1,6 @@
 Steam Game Sales Prediction
+
+
 Overview
 This project predicts how well a game will sell on Steam using details like price, reviews, and tags. The pipeline pulls the data, cleans it up, loads it into the project, trains a model, and creates charts to help visualize the results.
 
