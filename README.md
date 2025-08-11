@@ -1,27 +1,33 @@
-# INST414 Final Project – Valerie Mendoza
+# Steam Game Sales Prediction
+## What this project is about
+I’m building a pipeline to guess how well a game will sell on Steam using data like price, reviews, and tags. The pipeline gets the data, cleans it, loads it, trains a model, and makes some charts.
 
-## Project Overview
-This project predicts how well a video game might sell on Steam, based on public data like reviews, pricing, tags, and estimated player counts. The goal is to help game studios make smarter decisions about marketing and releases.
+## What’s in the project
+data/ – where the raw, cleaned, and output files go
 
-## Setup Instructions
-1. Clone the repo:
-git clone https://github.com/valeriemendoza/inst414-final-project-valerie-mendoza.git
+etl/ – scripts to get, clean, and save the data
 
-2. Set up a virtual environment:
-cd inst414-final-project-valerie-mendoza  
-python -m venv venv  
-source venv/bin/activate   (On Windows: venv\Scripts\activate)
+analysis/ – scripts to train and check the model
 
-3. Install the required packages:
+vis/ – makes the charts and graphs
+
+main.py – runs the whole thing
+
+requirements.txt – list of packages you need
+
+## How to run it
+Install the packages:
 pip install -r requirements.txt
 
-## Running the Project
-Run the full pipeline with:
+Run the pipeline:
 python main.py
 
-## Code Package Structure
-- data/: Where your raw, cleaned, and output data files are stored.
-- etl/: Scripts to extract, clean, and load data.
-- analysis/: Scripts for building and evaluating models.
-- vis/: Script for generating charts.
-- main.py: Runs the whole project pipeline.
+## Right now
+Pipeline works from start to finish
+
+Model gives predictions
+
+Some charts are ready
+
+Logging and error handling are in place
+
