@@ -1,20 +1,20 @@
 import os
-import pandas as pd
+import logging
 import requests
 
-def download_steam_dataset():
+logger = logging.getLogger("inst414.etl.extract")
+
+
+def download_steam_dataset(output_path: str):
+   
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     url = "https://huggingface.co/datasets/FronkonGames/steam-games-dataset/resolve/main/steam_games.csv"
-    output_dir = "inst414-final-project-valerie-mendoza/data/extracted"
-    os.makedirs(output_dir, exist_ok=True)
-    output_path = os.path.join(output_dir, "steam_games.csv")
-
-    response = requests.get(url)
-    if response.status_code == 200:
+    try:
+        r = requests.get(url, timeout=30)
+        r.raise_for_status()
         with open(output_path, "wb") as f:
-            f.write(response.content)
-        print("Dataset downloaded and saved to:", output_path)
-    else:
-        print("Failed to download dataset. Status code:", response.status_code)
-
-if __name__ == "__main__":
-    download_steam_dataset()
+            f.write(r.content)
+        logger.info(f"Downloaded dataset to {output_path}")
+    except Exception:
+        logger.exception("Failed to download dataset.")
+        raise

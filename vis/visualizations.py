@@ -1,36 +1,37 @@
+import os
+import logging
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
-def generate_visuals(data_path, output_dir):
-    df = pd.read_csv(data_path)
+
+logger = logging.getLogger("inst414.vis")
+
+
+def generate_visuals(processed_csv: str, output_dir: str):
     os.makedirs(output_dir, exist_ok=True)
+    df = pd.read_csv(processed_csv)
 
-    # Scatter plot: price vs owners
-    if "price" in df.columns and "owners" in df.columns:
+    target = "owners" if "owners" in df.columns else ("owner_estimate" if "owner_estimate" in df.columns else None)
+
+    if target and "price" in df.columns:
         plt.figure(figsize=(8, 6))
-        plt.scatter(df["price"], df["owners"], alpha=0.5)
-        plt.title("Price vs. Owners")
+        plt.scatter(df["price"], df[target], alpha=0.5)
+        plt.title(f"Price vs {target.replace('_', ' ').title()}")
         plt.xlabel("Price")
-        plt.ylabel("Estimated Owners")
+        plt.ylabel(target.replace("_", " ").title())
         plt.grid(True)
-        plt.savefig(os.path.join(output_dir, "price_vs_owners.png"))
+        out = os.path.join(output_dir, "price_vs_target.png")
+        plt.savefig(out, bbox_inches="tight")
         plt.close()
+        logger.info(f"Wrote {out}")
 
-    # Histogram: positive ratings
     if "positive_ratings" in df.columns:
         plt.figure(figsize=(8, 6))
-        plt.hist(df["positive_ratings"].dropna(), bins=30, color='skyblue')
+        df["positive_ratings"].dropna().plot(kind="hist", bins=30)
         plt.title("Distribution of Positive Ratings")
         plt.xlabel("Positive Ratings")
         plt.ylabel("Frequency")
         plt.grid(True)
-        plt.savefig(os.path.join(output_dir, "positive_ratings_hist.png"))
+        out = os.path.join(output_dir, "positive_ratings_hist.png")
+        plt.savefig(out, bbox_inches="tight")
         plt.close()
-
-    print("Visualizations saved to:", output_dir)
-
-if __name__ == "__main__":
-    cleaned_path = "inst414-final-project-valerie-mendoza/data/processed/steam_games_cleaned.csv"
-    output_path = "inst414-final-project-valerie-mendoza/data/outputs"
-    generate_visuals(cleaned_path, output_path)
-
+        logger.info(f"Wrote {out}")
