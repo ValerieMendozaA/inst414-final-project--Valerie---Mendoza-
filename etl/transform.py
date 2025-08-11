@@ -1,24 +1,34 @@
 import os
+import logging
 import pandas as pd
 
-def clean_steam_data(input_path, output_path):
+logger = logging.getLogger("inst414.etl.transform")
 
-    df = pd.read_csv(input_path)
 
-    df = df.drop_duplicates()
-    # names
-    df.columns = [col.strip().lower().replace(" ", "_") for col in df.columns]
+def clean_steam_data(input_path: str, output_path: str):
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    df = df.dropna(subset=["name", "release_date", "price", "tags"], how="any")
+    try:
+        df = pd.read_csv(input_path)
+    except FileNotFoundError:
+        logger.exception(f"Raw file not found at {input_path}")
+        raise
+
+    df.columns = [c.strip().lower().replace(" ", "_") for c in df.columns]
+
+    if "release_date" in df.columns:
+        df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
+        df["release_year"] = df["release_date"].dt.year
+
+    if "price" in df.columns:
+        df["price"] = pd.to_numeric(df["price"], errors="coerce")
 
     if "tags" in df.columns and df["tags"].dtype == object:
-        df["tags"] = df["tags"].apply(lambda x: x.split(",") if isinstance(x, str) else [])
+        df["tags"] = df["tags"].apply(lambda x: [t.strip() for t in str(x).split(",")] if pd.notnull(x) else [])
 
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    essential = [c for c in ["name", "price"] if c in df.columns]
+if essential:
+        df = df.dropna(subset=essential)
+
     df.to_csv(output_path, index=False)
-    print(f"Cleaned data saved to {output_path}")
-
-if __name__ == "__main__":
-    input_file = "inst414-final-project-valerie-mendoza/data/extracted/steam_games.csv"
-    output_file = "inst414-final-project-valerie-mendoza/data/processed/steam_games_cleaned.csv"
-    clean_steam_data(input_file, output_file)
+    logger.info(f"Cleaned data saved to {output_path}")
