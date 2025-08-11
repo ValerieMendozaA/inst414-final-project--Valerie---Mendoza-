@@ -1,32 +1,34 @@
 Steam Game Sales Prediction
-What this project is about
-I’m building a pipeline to guess how well a game will sell on Steam using data like price, reviews, and tags. The pipeline gets the data, cleans it, loads it, trains a model, and makes some charts.
+Overview
+This project predicts how well a game will sell on Steam using details like price, reviews, and tags. The pipeline pulls the data, cleans it up, loads it into the project, trains a model, and creates charts to help visualize the results.
 
-What’s in the project
-data/ – where the raw, cleaned, and output files go
 
-etl/ – scripts to get, clean, and save the data
+Project Structure
+data/ – folders for raw, processed, and output data
 
-analysis/ – scripts to train and check the model
+etl/ – scripts for extracting, cleaning, and loading data
 
-vis/ – makes the charts and graphs
+analysis/ – scripts for training and evaluating the model
 
-main.py – runs the whole thing
+vis/ – scripts for making charts and graphs
 
-requirements.txt – list of packages you need
+main.py – runs the entire pipeline
 
-How to run it
-Install the packages:
+requirements.txt – list of Python packages used
+
+
+How to Run
+1.Install the required packages:
 pip install -r requirements.txt
 
-Run the pipeline:
+2.Run the pipeline:
 python main.py
 
-Right now
-Pipeline works from start to finish
 
-Model gives predictions
+Current Status
+End-to-end pipeline is running
+Model generates predictions
+Initial charts are complete
 
-Some charts are ready
+Logging and error handling have been added
 
-Logging and error handling are in place
