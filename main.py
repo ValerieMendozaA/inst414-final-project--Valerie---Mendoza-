@@ -1,39 +1,96 @@
+from pathlib import Path
+import logging
+import logging.handlers
+
 from etl.extract import download_steam_dataset
 from etl.transform import clean_steam_data
 from etl.load import load_cleaned_data
 from analysis.model import train_model
-from analysis.evaluate import evaluate_model
+from analysis.evaluate import evaluate_and_save_metrics
 from vis.visualizations import generate_visuals
 
+# Paths
+BASE = Path(__file__).resolve().parent
+DATA = BASE / "data"
+EXTRACTED = DATA / "extracted" / "steam_games.csv"
+PROCESSED = DATA / "processed" / "steam_games_cleaned.csv"
+OUTPUTS = DATA / "outputs"
+LOGS = BASE / "logs"
+LOG_FILE = LOGS / "app.log"
+
+
+def setup_logger():
+    LOGS.mkdir(parents=True, exist_ok=True)
+    logger = logging.getLogger("inst414")
+    logger.setLevel(logging.INFO)
+
+    fh = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes=1_000_000, backupCount=2)
+    ch = logging.StreamHandler()
+
+    fmt = logging.Formatter("%(asctime)s | %(levelname)s | %(name)s | %(message)s")
+    fh.setFormatter(fmt)
+    ch.setFormatter(fmt)
+
+    if not logger.handlers:
+        logger.addHandler(fh)
+        logger.addHandler(ch)
+    return logger
+
+
 def run_pipeline():
-    # Step 1: Extract
-    print("Extracting data...")
-    download_steam_dataset()
+    logger = setup_logger()
+    (DATA / "extracted").mkdir(parents=True, exist_ok=True)
+    (DATA / "processed").mkdir(parents=True, exist_ok=True)
+    OUTPUTS.mkdir(parents=True, exist_ok=True)
 
-    # Step 2: Transform
-    print("Cleaning data...")
-    input_path = "inst414-final-project-valerie-mendoza/data/extracted/steam_games.csv"
-    output_path = "inst414-final-project-valerie-mendoza/data/processed/steam_games_cleaned.csv"
-    clean_steam_data(input_path, output_path)
+    logger.info("=== START PIPELINE ===")
 
-    # Step 3: Load
-    print("Loading cleaned data...")
-    df = load_cleaned_data(output_path)
+    # 1) Extract
+    try:
+        logger.info("Extracting data…")
+        download_steam_dataset(str(EXTRACTED))
+    except Exception:
+        logger.exception("Extract failed (continuing).")
 
-    # Step 4: Modeling
-    print("Training model...")
-    model, X_test, y_test = train_model(output_path)
+    # 2) Transform
+    try:
+        logger.info("Transforming data…")
+        clean_steam_data(str(EXTRACTED), str(PROCESSED))
+    except Exception:
+        logger.exception("Transform failed (continuing).")
 
-    # Step 5: Evaluation
-    print("Evaluating model...")
-    evaluate_model()
+    # 3) Load
+    df = None
+    try:
+        logger.info("Loading cleaned data…")
+        df = load_cleaned_data(str(PROCESSED))
+        logger.info(f"Loaded cleaned data shape: {getattr(df, 'shape', None)}")
+    except Exception:
+        logger.exception("Load failed (continuing).")
 
-    # Step 6: Visualizations
-    print("Generating visualizations...")
-    generate_visuals(output_path, "inst414-final-project-valerie-mendoza/data/outputs")
+    # 4) Train
+    try:
+        logger.info("Training model…")
+        train_model(str(PROCESSED), outputs_dir=str(OUTPUTS))
+    except Exception:
+        logger.exception("Model training failed (continuing).")
 
-    print("Pipeline complete!")
+
+    try:
+        logger.info("Evaluating model…")
+        evaluate_and_save_metrics(str(PROCESSED), outputs_dir=str(OUTPUTS))
+    except Exception:
+        logger.exception("Evaluation failed (continuing).")
+
+    # 6) Visualize
+    try:
+        logger.info("Generating visuals…")
+        generate_visuals(str(PROCESSED), str(OUTPUTS))
+    except Exception:
+        logger.exception("Visualization failed (continuing).")
+
+    logger.info(" END PIPELINE ")
+
 
 if __name__ == "__main__":
     run_pipeline()
-
