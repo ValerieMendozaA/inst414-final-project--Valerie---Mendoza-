@@ -6,7 +6,7 @@ Hi! This project is about predicting how well a video game will sell on Steam us
 
 ## What the Code Does
 
-When you run `main.py`, here’s what happens:
+When I run `main.py`, here’s what happens:
 
 1. Uses the Steam dataset you provide  
 2. Cleans and processes the data  
@@ -55,4 +55,4 @@ Once the dataset is in the right place, just run:
 python main.py
 
 
-It’ll go through the whole pipeline — from cleaning the data to training the model and generating visualizations. You’ll find the outputs in the data/outputs/ folder.
+It’ll go through the whole pipeline from cleaning the data to training the model and generating visualizations. You’ll find the outputs in the data/outputs/ folder.
