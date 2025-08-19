@@ -29,27 +29,26 @@ When you run `main.py`, it will:
 
 ## How to Run
 
-1. Install the required packages:
+1. First, install all the necessary Python packages by running:
 ```bash
 pip install -r requirements.txt
-Download the dataset manually.
-Go to this link:
+Next, the dataset needs to be downloaded manually.
+It’s not included in the repository due to size restrictions.
+Please use this link to download the file:
 https://huggingface.co/datasets/FronkonGames/steam-games-dataset/blob/main/games.csv
-Click the download button, save the file, and rename it to:
+
+After downloading it, rename the file to:
 
 Copy
 Edit
 steam_games.csv
-Then place the file into this folder in your project:
+Then place the file into this folder inside the project:
 
 bash
 Copy
 Edit
 data/extracted/
-
-
-
-Run the pipeline by entering:
+Once the dataset is in place, run the pipeline by using:
 
 bash
 Copy
