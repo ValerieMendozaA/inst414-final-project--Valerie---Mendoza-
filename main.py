@@ -49,6 +49,9 @@ def run_pipeline():
     try:
         logger.info("Extracting data…")
         download_steam_dataset(str(EXTRACTED))
+    if not EXTRACTED.exists():
+        logger.error(f"Dataset was not downloaded properly: {EXTRACTED} missing.")
+        raise FileNotFoundError(EXTRACTED)
     except Exception:
         logger.exception("Extract failed (continuing).")
 
@@ -94,3 +97,4 @@ def run_pipeline():
 
 if __name__ == "__main__":
     run_pipeline()
+

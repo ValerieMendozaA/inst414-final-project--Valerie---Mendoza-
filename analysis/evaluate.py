@@ -23,3 +23,4 @@ def evaluate_and_save_metrics(processed_csv: str, outputs_dir: str = "data/outpu
         f.write(f"MSE: {mse:.4f}\nR2: {r2:.4f}\n")
 
     logger.info("Saved metrics to data/outputs.")
+
