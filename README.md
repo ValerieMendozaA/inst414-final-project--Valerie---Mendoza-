@@ -1,56 +1,58 @@
-# Steam Game Sales Prediction Pipeline
+# Steam Game Sales Prediction Pipeline 🎮
 
-This project predicts video game sales based on Steam data using a full data pipeline.
+Hi! This project is all about predicting how well a video game will sell on Steam using a full data science pipeline. It goes from raw data to clean visuals, and everything is handled through code — just run one file and it walks through the whole process.
 
 ---
 
 ## What the Code Does
 
-When you run `main.py`, it will:
+When you run `main.py`, here’s what happens:
 
-1. Download or use the Steam dataset  
-2. Clean and process the data  
-3. Train a linear regression model  
-4. Evaluate the model with MSE and R²  
-5. Create visualizations
-
----
-
-## Project Folders
-
-- `etl/` – code for downloading, cleaning, and loading data  
-- `analysis/` – model training and evaluation  
-- `vis/` – charts and plots  
-- `data/` – data files (only the dictionary is included)  
-- `logs/` – where pipeline logs go  
-- `main.py` – runs the full pipeline
+1. Uses the Steam dataset you provide  
+2. Cleans and processes the data  
+3. Trains a linear regression model  
+4. Evaluates the model using MSE and R²  
+5. Creates visualizations that show insights into game performance
 
 ---
 
-## How to Run
+## Project Structure
 
-1. First, install all the necessary Python packages by running:
+- `etl/` – handles extraction, transformation, and loading of the data  
+- `analysis/` – runs modeling and evaluation  
+- `vis/` – generates all charts and visuals  
+- `data/` – contains reference tables and output folders  
+- `logs/` – stores logs for each pipeline run  
+- `main.py` – this is the file that runs everything
+
+---
+
+## How to Run It
+
+1. **Install the required Python packages**  
+Open your terminal and run:
 ```bash
 pip install -r requirements.txt
-Next, the dataset needs to be downloaded manually.
-It’s not included in the repository due to size restrictions.
-Please use this link to download the file:
-https://huggingface.co/datasets/FronkonGames/steam-games-dataset/blob/main/games.csv
 
-After downloading it, rename the file to:
+Download the dataset manually
+The dataset is too large to include in GitHub; I had to download it myself:
 
-Copy
-Edit
+Link: https://huggingface.co/datasets/FronkonGames/steam-games-dataset/blob/main/games.csv
+
+After downloading, rename the file to:
+
 steam_games.csv
-Then place the file into this folder inside the project:
 
-bash
-Copy
-Edit
+
+Then place it inside this folder:
+
 data/extracted/
-Once the dataset is in place, run the pipeline by using:
 
-bash
-Copy
-Edit
+
+Run the pipeline
+Once the dataset is in the right place, just run:
+
 python main.py
+
+
+It’ll go through the whole pipeline — from cleaning the data to training the model and generating visualizations. You’ll find the outputs in the data/outputs/ folder.
