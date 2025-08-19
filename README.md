@@ -1,6 +1,6 @@
 # Steam Game Sales Prediction Pipeline 🎮
 
-Hi! This project is all about predicting how well a video game will sell on Steam using a full data science pipeline. It goes from raw data to clean visuals, and everything is handled through code — just run one file and it walks through the whole process.
+Hi! This project is about predicting how well a video game will sell on Steam using a full data science pipeline. It goes from raw data to clean visuals, and everything is handled through code just run one file and it walks through the whole process.
 
 ---
 
