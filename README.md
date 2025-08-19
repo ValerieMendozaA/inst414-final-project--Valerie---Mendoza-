@@ -1,33 +1,57 @@
-# Steam Game Sales Prediction
-## What this project is about
-I’m building a pipeline to guess how well a game will sell on Steam using data like price, reviews, and tags. The pipeline gets the data, cleans it, loads it, trains a model, and makes some charts.
+# Steam Game Sales Prediction Pipeline
 
-## What’s in the project
-data/ – where the raw, cleaned, and output files go
+This project predicts video game sales based on Steam data using a full data pipeline.
 
-etl/ – scripts to get, clean, and save the data
+---
 
-analysis/ – scripts to train and check the model
+## What the Code Does
 
-vis/ – makes the charts and graphs
+When you run `main.py`, it will:
 
-main.py – runs the whole thing
+1. Download or use the Steam dataset  
+2. Clean and process the data  
+3. Train a linear regression model  
+4. Evaluate the model with MSE and R²  
+5. Create visualizations
 
-requirements.txt – list of packages you need
+---
 
-## How to run it
-Install the packages:
+## Project Folders
+
+- `etl/` – code for downloading, cleaning, and loading data  
+- `analysis/` – model training and evaluation  
+- `vis/` – charts and plots  
+- `data/` – data files (only the dictionary is included)  
+- `logs/` – where pipeline logs go  
+- `main.py` – runs the full pipeline
+
+---
+
+## How to Run
+
+1. Install the required packages:
+```bash
 pip install -r requirements.txt
+Download the dataset manually.
+Go to this link:
+https://huggingface.co/datasets/FronkonGames/steam-games-dataset/blob/main/games.csv
+Click the download button, save the file, and rename it to:
 
-Run the pipeline:
+Copy
+Edit
+steam_games.csv
+Then place the file into this folder in your project:
+
+bash
+Copy
+Edit
+data/extracted/
+
+
+
+Run the pipeline by entering:
+
+bash
+Copy
+Edit
 python main.py
-
-## Right now
-Pipeline works from start to finish
-
-Model gives predictions
-
-Some charts are ready
-
-Logging and error handling are in place
-
