@@ -45,3 +45,4 @@ def train_model(processed_csv: str, outputs_dir: str = "data/outputs"):
     dump(model, os.path.join(outputs_dir, "baseline_model.joblib"))
     logger.info("Model trained and saved.")
     return model, X_test, y_test
+
