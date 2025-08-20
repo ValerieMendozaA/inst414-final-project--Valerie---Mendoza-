@@ -1,27 +1,58 @@
-# INST414 Final Project – Valerie Mendoza
+# Steam Game Sales Prediction Pipeline 🎮
 
-## Project Overview
-This project predicts how well a video game might sell on Steam, based on public data like reviews, pricing, tags, and estimated player counts. The goal is to help game studios make smarter decisions about marketing and releases.
+Hi! This project is about predicting how well a video game will sell on Steam using a full data science pipeline. It goes from raw data to clean visuals, and everything is handled through code just run one file and it walks through the whole process.
 
-## Setup Instructions
-1. Clone the repo:
-git clone https://github.com/valeriemendoza/inst414-final-project-valerie-mendoza.git
+---
 
-2. Set up a virtual environment:
-cd inst414-final-project-valerie-mendoza  
-python -m venv venv  
-source venv/bin/activate   (On Windows: venv\Scripts\activate)
+## What the Code Does
 
-3. Install the required packages:
+When I run `main.py`, here’s what happens:
+
+1. Uses the Steam dataset you provide  
+2. Cleans and processes the data  
+3. Trains a linear regression model  
+4. Evaluates the model using MSE and R²  
+5. Creates visualizations that show insights into game performance
+
+---
+
+## Project Structure
+
+- `etl/` – handles extraction, transformation, and loading of the data  
+- `analysis/` – runs modeling and evaluation  
+- `vis/` – generates all charts and visuals  
+- `data/` – contains reference tables and output folders  
+- `logs/` – stores logs for each pipeline run  
+- `main.py` – this is the file that runs everything
+
+---
+
+## How to Run It
+
+1. **Install the required Python packages**  
+Open your terminal and run:
+```bash
 pip install -r requirements.txt
 
-## Running the Project
-Run the full pipeline with:
+Download the dataset manually
+The dataset is too large to include inside GitHub, and I know we are not supposed to add it; I had to download it myself:
+
+Link: https://huggingface.co/datasets/FronkonGames/steam-games-dataset/blob/main/games.csv
+
+After downloading, rename the file to:
+
+steam_games.csv
+
+
+Then place it inside this folder:
+
+data/extracted/
+
+
+Run the pipeline
+Once the dataset is in the right place, just run:
+
 python main.py
 
-## Code Package Structure
-- data/: Where your raw, cleaned, and output data files are stored.
-- etl/: Scripts to extract, clean, and load data.
-- analysis/: Scripts for building and evaluating models.
-- vis/: Script for generating charts.
-- main.py: Runs the whole project pipeline.
+
+It’ll go through the whole pipeline from cleaning the data to training the model and generating visualizations. You’ll find the outputs in the data/outputs/ folder.

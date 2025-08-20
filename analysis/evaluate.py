@@ -1,17 +1,26 @@
+import os
+import logging
+import pandas as pd
 from sklearn.metrics import mean_squared_error, r2_score
-from model import train_model
+from analysis.model import train_model
 
-def evaluate_model():
- 
-    model, X_test, y_test = train_model("inst414-final-project-valerie-mendoza/data/processed/steam_games_cleaned.csv")
-    predictions = model.predict(X_test)
+logger = logging.getLogger("inst414.analysis.evaluate")
 
-    mse = mean_squared_error(y_test, predictions)
-    r2 = r2_score(y_test, predictions)
 
-    print("Model Evaluation:")
-    print(f"Mean Squared Error (MSE): {mse:.2f}")
-    print(f"R-squared (R²): {r2:.2f}")
+def evaluate_and_save_metrics(processed_csv: str, outputs_dir: str = "data/outputs"):
+    os.makedirs(outputs_dir, exist_ok=True)
+    model, X_test, y_test = train_model(processed_csv, outputs_dir)
+    y_pred = model.predict(X_test)
 
-if __name__ == "__main__":
-    evaluate_model()
+    mse = float(mean_squared_error(y_test, y_pred))
+    r2 = float(r2_score(y_test, y_pred))
+
+    pd.DataFrame(
+        [{"metric": "MSE", "value": mse}, {"metric": "R2", "value": r2}]
+    ).to_csv(os.path.join(outputs_dir, "metrics.csv"), index=False)
+
+    with open(os.path.join(outputs_dir, "metrics.txt"), "w") as f:
+        f.write(f"MSE: {mse:.4f}\nR2: {r2:.4f}\n")
+
+    logger.info("Saved metrics to data/outputs.")
+
