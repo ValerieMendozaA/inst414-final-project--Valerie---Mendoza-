@@ -37,7 +37,7 @@ pip install -r requirements.txt
 Download the dataset manually
 The dataset is too large to include inside GitHub, and I know we are not supposed to add it; I had to download it myself:
 
-Link: https://huggingface.co/datasets/FronkonGames/steam-games-dataset/blob/main/games.csv
+Link:[ https://huggingface.co/datasets/FronkonGames/steam-games-dataset/blob/main/games.csv](https://huggingface.co/datasets/FronkonGames/steam-games-dataset)
 
 After downloading, rename the file to:
 
