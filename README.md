@@ -31,7 +31,7 @@ When I run `main.py`, here’s what happens:
 
 1. **Install the required Python packages**  
 Open your terminal and run:
-```bash
+
 pip install -r requirements.txt
 
 Download the dataset manually
